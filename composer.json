@@ -1,0 +1,41 @@
+{
+    "name": "tomatophp/filament-artisan",
+    "type": "library",
+    "description": "Simple but yet powerful library for running some artisan commands. this packages is a fork of artisan-gui with some custom for filament UI",
+    "keywords": [
+        "php",
+        "laravel",
+        "artisan",
+        "commands",
+        "gui",
+        "filament"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TomatoPHP\\FilamentArtisan\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TomatoPHP\\FilamentArtisan\\FilamentArtisanServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Fady Mondy",
+            "email": "info@3x1.io"
+        }
+    ],
+    "require": {
+        "php": "^8.1|^8.2",
+        "tomatophp/console-helpers": "^1.1"
+    }
+}
