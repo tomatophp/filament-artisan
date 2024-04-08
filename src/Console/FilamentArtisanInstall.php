@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentArtisan\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
 
 class FilamentArtisanInstall extends Command
@@ -37,11 +38,10 @@ class FilamentArtisanInstall extends Command
     public function handle()
     {
         $this->info('Publish Vendor Assets');
-        $this->callSilent('optimize:clear');
-        $this->yarnCommand(['install']);
-        $this->yarnCommand(['build']);
-        $this->artisanCommand(["migrate"]);
+        if(!File::exists(public_path('js/gui.js'))){
+            File::copyDirectory(__DIR__ . '/../../publish', public_path());
+        }
         $this->artisanCommand(["optimize:clear"]);
-        $this->info('filamentArtisan installed successfully.');
+        $this->info('Filament Artisan installed successfully.');
     }
 }

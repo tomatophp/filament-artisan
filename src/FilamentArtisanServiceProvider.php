@@ -45,9 +45,14 @@ class FilamentArtisanServiceProvider extends ServiceProvider
            __DIR__.'/../resources/lang' => base_path('lang/vendor/filament-artisan'),
         ], 'filament-artisan-lang');
 
-        //Register Routes
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $middleware = config('filament-artisan.middlewares', []);
 
+        \Route::middleware($middleware)
+            ->prefix(config('filament-artisan.prefix', '~') . 'artisan')
+            ->group(function () {
+                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+            });
+        //Register Routes
     }
 
     public function boot(): void

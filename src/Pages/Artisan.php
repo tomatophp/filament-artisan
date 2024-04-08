@@ -5,14 +5,25 @@ namespace TomatoPHP\FilamentArtisan\Pages;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\App;
 use TomatoPHP\FilamentArtisan\Http\Controllers\GuiController;
+use TomatoPHP\FilamentDeveloperGate\Traits\DeveloperGateLogoutAction;
+use TomatoPHP\FilamentDeveloperGate\Traits\InteractWithDeveloperGate;
 
 class Artisan extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-code';
 
-    protected static string $view = 'gui::index';
+    use InteractWithDeveloperGate;
+    use DeveloperGateLogoutAction;
+
+    protected static ?string $navigationIcon = 'heroicon-o-command-line';
+
+    protected static string $view = 'filament-artisan::index';
 
     protected static ?string $navigationGroup = 'Settings';
+
+    public function getTitle(): string
+    {
+        return "Artisan";
+    }
 
     public static function shouldRegisterNavigation(): bool
     {

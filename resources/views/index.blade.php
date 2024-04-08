@@ -1,10 +1,10 @@
 <x-filament::page>
-    @include('gui::partials.styles')
+    @include('filament-artisan::partials.styles')
     <div id="app">
-        <app home="{{ url(config('artisan-gui.home', '/')) }}" endpoint={{ url('admin/artisan/json') }} />
+        <app home="{{ url(config('filament-artisan.home', '/')) }}" endpoint={{ url('admin/artisan/json') }} />
     </div>
 </x-filament::page>
 
 @push('scripts')
-@include('gui::partials.scripts')
+@include('filament-artisan::partials.scripts')
 @endpush

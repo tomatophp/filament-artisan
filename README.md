@@ -5,6 +5,12 @@
 Simple but yet powerful library for running some [artisan](https://laravel.com/docs/8.x/artisan) commands.
 this packages is a fork of [artisan-gui](https://github.com/infureal/artisan-gui) with some custom for filament UI
 
+## Screenshots
+
+![Screenshot](./arts/commands.png)
+![Screenshot](./arts/search.png)
+![Screenshot](./arts/run.png)
+
 ## Installation
 
 ```bash
@@ -16,21 +22,10 @@ after install your package please run this command
 php artisan filament-artisan:install
 ```
 
-By default package has predefined config and inline styles and scripts.
-Since version `1.4` you can publish vendors like css and js files in `vendor/artisan-gui`:
-```bash
-php artisan vendor:publish --provider="TomatoPHP\FilamentArtisan\FilamentArtisanProvider"
-```
+finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
-Publish only config:
-```bash
-php artisan vendor:publish --tag="artisan-gui-config"
-```
-
-Publish only styles and scripts:
-
-```bash
-php artisan vendor:publish --tag="artisan-gui-css-js"
+```php
+->plugin(\TomatoPHP\FilamentArtisan\FilamentArtisanPlugin::make())
 ```
 
 ## Running command
