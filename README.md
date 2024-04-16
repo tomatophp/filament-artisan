@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/tomatophp/filament-artisan/blob/master/arts/3x1io-tomato-artisan.jpg?raw=true)
+![Screenshot](https://github.com/tomatophp/filament-artisan/blob/master/arts/3x1io-tomato-artisan.jpg)
 
 # Filament artisan
 
