@@ -1,15 +1,20 @@
-![Screenshot](./arts/screenshot.png)
+![Screenshot](https://github.com/tomatophp/filament-alerts/blob/master/arts/3x1io-tomato-artisan.png)
 
 # Filament artisan
+
+[![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-artisan/version.svg)](https://packagist.org/packages/tomatophp/filament-artisan)
+[![PHP Version Require](http://poser.pugx.org/tomatophp/filament-artisan/require/php)](https://packagist.org/packages/tomatophp/filament-artisan)
+[![License](https://poser.pugx.org/tomatophp/filament-artisan/license.svg)](https://packagist.org/packages/tomatophp/filament-artisan)
+[![Downloads](https://poser.pugx.org/tomatophp/filament-artisan/d/total.svg)](https://packagist.org/packages/tomatophp/filament-artisan)
 
 Simple but yet powerful library for running some [artisan](https://laravel.com/docs/8.x/artisan) commands.
 this packages is a fork of [artisan-gui](https://github.com/infureal/artisan-gui) with some custom for filament UI
 
 ## Screenshots
 
-![Screenshot](./arts/commands.png)
-![Screenshot](./arts/search.png)
-![Screenshot](./arts/run.png)
+![Screenshot](https://github.com/tomatophp/filament-alerts/blob/master/arts/commands.png)
+![Screenshot](https://github.com/tomatophp/filament-alerts/blob/master/arts/search.png)
+![Screenshot](https://github.com/tomatophp/filament-alerts/blob/master/arts/run.png)
 
 ## Installation
 
