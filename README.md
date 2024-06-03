@@ -12,9 +12,9 @@ this packages is a fork of [artisan-gui](https://github.com/infureal/artisan-gui
 
 ## Screenshots
 
-![Screenshot](https://raw.githubusercontent.com//tomatophp/filament-artisan/master/arts/commands.png)
-![Screenshot](https://raw.githubusercontent.com//tomatophp/filament-artisan/master/arts/search.png)
-![Screenshot](https://raw.githubusercontent.com//tomatophp/filament-artisan/master/arts/run.png)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands.png)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/search.png)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/run.png)
 
 ## Installation
 
