@@ -13,7 +13,7 @@ Simple but yet powerful library for running some [artisan](https://laravel.com/d
 
 ![Commands List](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands.png)
 ![Commands Form](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands-form.png)
-![Commands Output](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands-output.png)
+![Commands Output](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/command-output.png)
 
 ## Installation
 
