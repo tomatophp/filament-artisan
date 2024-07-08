@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentArtisan;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use TomatoPHP\FilamentArtisan\Pages\Artisan;
+use TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin;
 
 
 class FilamentArtisanPlugin implements Plugin
@@ -17,6 +18,7 @@ class FilamentArtisanPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel
+            ->plugin(FilamentDeveloperGatePlugin::make())
             ->pages([
                 Artisan::class,
             ]);

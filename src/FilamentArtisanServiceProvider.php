@@ -9,11 +9,6 @@ class FilamentArtisanServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //Register generate command
-        $this->commands([
-           \TomatoPHP\FilamentArtisan\Console\FilamentArtisanInstall::class,
-        ]);
-
         //Register Config file
         $this->mergeConfigFrom(__DIR__.'/../config/filament-artisan.php', 'filament-artisan');
 
@@ -22,13 +17,6 @@ class FilamentArtisanServiceProvider extends ServiceProvider
            __DIR__.'/../config/filament-artisan.php' => config_path('filament-artisan.php'),
         ], 'filament-artisan-config');
 
-        //Register Migrations
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
-        //Publish Migrations
-        $this->publishes([
-           __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'filament-artisan-migrations');
         //Register views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-artisan');
 
@@ -44,15 +32,6 @@ class FilamentArtisanServiceProvider extends ServiceProvider
         $this->publishes([
            __DIR__.'/../resources/lang' => base_path('lang/vendor/filament-artisan'),
         ], 'filament-artisan-lang');
-
-        $middleware = config('filament-artisan.middlewares', []);
-
-        \Route::middleware($middleware)
-            ->prefix(config('filament-artisan.prefix', '~') . 'artisan')
-            ->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-            });
-        //Register Routes
     }
 
     public function boot(): void

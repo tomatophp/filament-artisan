@@ -75,13 +75,48 @@ return [
     |
     */
     'commands' => [
+        'filament' => [
+            'filament:assets',
+            'filament:cache-components',
+            'filament:check-translations',
+            'filament:clear-cached-components',
+            'filament:helpers',
+            'filament:upgrade',
+            'make:filament-cluster',
+            'make:filament-exporter',
+            'make:filament-issue',
+            'make:filament-page',
+            'make:filament-panel',
+            'make:filament-relation-manager',
+            'make:filament-resource',
+            'make:filament-settings-page',
+            'make:filament-theme',
+            'make:filament-user',
+            'make:filament-widget',
+        ],
+        'livewire' => [
+            'livewire:attribute',
+            'livewire:configure-s3-upload-cleanup',
+            'livewire:copy',
+            'livewire:delete',
+            'livewire:form',
+            'livewire:layout',
+            'livewire:make',
+            'livewire:move',
+            'livewire:publish',
+            'livewire:stubs',
+            'livewire:upgrade'
+        ],
+        'icons' => [
+            'icons:cache',
+            'icons:clear'
+        ],
         'laravel' => [
             'clear-compiled',
             'down',
             'up',
             'env',
             'help',
-            'inspire',
             'list',
             'notifications:table',
             'package:discover',

@@ -7,38 +7,32 @@
 [![License](https://poser.pugx.org/tomatophp/filament-artisan/license.svg)](https://packagist.org/packages/tomatophp/filament-artisan)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-artisan/d/total.svg)](https://packagist.org/packages/tomatophp/filament-artisan)
 
-Simple but yet powerful library for running some [artisan](https://laravel.com/docs/8.x/artisan) commands.
-this packages is a fork of [artisan-gui](https://github.com/infureal/artisan-gui) with some custom for filament UI
+Simple but yet powerful library for running some [artisan](https://laravel.com/docs/8.x/artisan) commands for FilamentPHP
 
 ## Screenshots
 
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands.png)
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/search.png)
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/run.png)
+![Commands List](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands.png)
+![Commands Form](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands-form.png)
+![Commands Output](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands-output.png)
 
 ## Installation
 
 ```bash
 composer require tomatophp/filament-artisan
 ```
-after install your package please run this command
-
-```bash
-php artisan filament-artisan:install
-```
 
 finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
-->plugin(\TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin::make())
 ->plugin(\TomatoPHP\FilamentArtisan\FilamentArtisanPlugin::make())
 ```
 
 ## Running command
+
 By default, you can access this page only in local environment. If you wish
 you can change `local` key in config.
 
-Simply go to `http://you-domain.com/admin/artisan` and here we go!
+Simply go to `http://you-domain.com/PANEL/artisan` and here we go!
 Select needed command from list, fill arguments and options/flags and hit `run` button.
 
 ## Configuration
@@ -141,11 +135,6 @@ you can publish languages file by use this command
 php artisan vendor:publish --tag="filament-artisan-lang"
 ```
 
-you can publish migrations file by use this command
-
-```bash
-php artisan vendor:publish --tag="filament-artisan-migrations"
-```
 
 ## Other Filament Packages
 
