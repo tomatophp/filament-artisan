@@ -76,7 +76,7 @@ class Artisan extends Page implements HasTable, HasActions
                         ->success()
                         ->send();
 
-                    return redirect()->to('admin/developer-gate');
+                    return redirect()->to(config('filament-developer-gate.route_prefix') . '/developer-gate');
                 })
                 ->requiresConfirmation()
                 ->color('danger')
