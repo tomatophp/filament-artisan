@@ -152,6 +152,10 @@ class Artisan extends Page implements HasTable, HasActions
     }
 
 
+    public static function getNavigationIcon(): ?string
+    {
+        return strval(__(config('filament-artisan.navigation.icon') ?? static::$navigationIcon));
+    }
 
     public function table(Table $table): Table
     {

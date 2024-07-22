@@ -217,9 +217,9 @@ return [
     |   group:
     |       set the group name for the navigation (will be translate).
     */
-     'navigation' => [
-         'show-only-commands-showing' => true,
-         'group' => 'Settings'
-     ]
-
+    'navigation' => [
+        'show-only-commands-showing' => true,
+        'group' => 'Settings',
+        'icon' => 'heroicon-o-command-line',
+    ]
 ];
