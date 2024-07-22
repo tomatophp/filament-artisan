@@ -88,6 +88,7 @@ class Artisan extends Page implements HasTable, HasActions
     public function runAction(?Command $item=null)
     {
         return Action::make('runAction')
+            ->label(trans('filament-artisan::messages.modal.label'))
             ->requiresConfirmation()
             ->view('filament-artisan::actions.run')
             ->viewData(['item' => $item])
