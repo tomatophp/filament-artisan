@@ -5,33 +5,45 @@ namespace TomatoPHP\FilamentArtisan\Pages;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Panel;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\BufferedOutput;
 use TomatoPHP\FilamentArtisan\Http\Controllers\GuiController;
 use TomatoPHP\FilamentArtisan\Models\Command;
-use TomatoPHP\FilamentDeveloperGate\Traits\DeveloperGateLogoutAction;
-use TomatoPHP\FilamentDeveloperGate\Traits\InteractWithDeveloperGate;
+use TomatoPHP\FilamentDeveloperGate\Http\Middleware\DeveloperGateMiddleware;
 
 class Artisan extends Page implements HasTable, HasActions
 {
     use InteractsWithTable;
     use InteractsWithActions;
-    use InteractWithDeveloperGate;
 
     protected static ?string $navigationIcon = 'heroicon-o-command-line';
 
     protected static string $view = 'filament-artisan::index';
+
+    public static function getRouteMiddleware(Panel $panel): string|array
+    {
+        $middlewares = [
+            'auth',
+            'verified',
+        ];
+
+        if (config('filament-artisan.developer_gate', true)) {
+            $middlewares[] = DeveloperGateMiddleware::class;
+        }
+
+        return $middlewares;
+    }
 
     public function getTitle(): string
     {
@@ -53,21 +65,24 @@ class Artisan extends Page implements HasTable, HasActions
 
     protected function getHeaderActions(): array
     {
-        return [
+        $actions = [
             Action::make('output')
                 ->icon('heroicon-s-computer-desktop')
                 ->color('warning')
-                ->form(fn(array $arguments=[]) =>[
+                ->form(fn(array $arguments = []) => [
                     Textarea::make('output')
                         ->autosize()
-                        ->default($arguments? $arguments['output']:session()->get('terminal_output'))
+                        ->default($arguments ? $arguments['output'] : session()->get('terminal_output'))
                         ->disabled()
                         ->label(trans('filament-artisan::messages.actions.output'))
                 ])
                 ->label(trans('filament-artisan::messages.actions.output')),
-            Action::make('developer_gate_logout')
+        ];
+
+        if (config('filament-artisan.developer_gate', true)) {
+            $actions[] = Action::make('developer_gate_logout')
                 ->icon('heroicon-s-arrow-left-on-rectangle')
-                ->action(function (){
+                ->action(function () {
                     session()->forget('developer_password');
 
                     Notification::make()
@@ -80,40 +95,40 @@ class Artisan extends Page implements HasTable, HasActions
                 })
                 ->requiresConfirmation()
                 ->color('danger')
-                ->label(trans('filament-developer-gate::messages.logout'))
-        ];
+                ->label(trans('filament-developer-gate::messages.logout'));
+        }
+
+        return $actions;
     }
 
-    public function runAction(?Command $item=null)
+    public function runAction(?Command $item = null)
     {
         return Action::make('runAction')
+            ->label(trans('filament-artisan::messages.modal.label'))
             ->requiresConfirmation()
             ->view('filament-artisan::actions.run')
             ->viewData(['item' => $item])
-            ->form(function (array $arguments=[]){
+            ->form(function (array $arguments = []) {
                 $form = [];
                 $commandArguments = $arguments['item']['arguments'] != 'null' ? json_decode($arguments['item']['arguments']) : [];
-                $commandOptions = $arguments['item']['options'] != 'null'? json_decode($arguments['item']['options']) : [];
+                $commandOptions = $arguments['item']['options'] != 'null' ? json_decode($arguments['item']['options']) : [];
                 $formBuild = [];
-                foreach ($commandArguments as $arg){
+                foreach ($commandArguments as $arg) {
                     $formBuild[] = $arg;
                 }
-                foreach ($commandOptions as $opt){
+                foreach ($commandOptions as $opt) {
                     $opt->required = false;
                     $formBuild[] = $opt;
                 }
 
-                foreach ($formBuild as $formItem){
-                    if($formItem->array){
-                        $form[] = Select::make($formItem->name)
-                            ->searchable()
+                foreach ($formBuild as $formItem) {
+                    if ($formItem->array) {
+                        $form[] = TagsInput::make($formItem->name)
                             ->hint($formItem->description)
                             ->label($formItem->title)
                             ->default($formItem->default)
-                            ->required($formItem->required)
-                            ->options($formItem->array);
-                    }
-                    else {
+                            ->required($formItem->required);
+                    } else {
                         $form[] = TextInput::make($formItem->name)
                             ->password($formItem->name === 'password' ? true : false)
                             ->email($formItem->name === 'email' ? true : false)
@@ -125,9 +140,9 @@ class Artisan extends Page implements HasTable, HasActions
                     }
                 }
 
-               return $form;
+                return $form;
             })
-            ->action(function (array $arguments=[], array $data=[]){
+            ->action(function (array $arguments = [], array $data = []) {
                 $output = $this->runCommand($arguments['item']['name'], $data);
                 $this->replaceMountedAction('output', ['output' => $output]);
             });
@@ -151,14 +166,17 @@ class Artisan extends Page implements HasTable, HasActions
         return strval(__(config('filament-artisan.navigation.group') ?? static::$navigationGroup));
     }
 
-
+    public static function getNavigationIcon(): ?string
+    {
+        return strval(__(config('filament-artisan.navigation.icon') ?? static::$navigationIcon));
+    }
 
     public function table(Table $table): Table
     {
         return $table
             ->query(Command::query())
             ->paginated(false)
-            ->content(fn()=> view('filament-artisan::table.content'))
+            ->content(fn() => view('filament-artisan::table.content'))
             ->defaultSort('name')
             ->filters([
                 SelectFilter::make('group')
@@ -188,7 +206,7 @@ class Artisan extends Page implements HasTable, HasActions
     {
         $commands = \Illuminate\Support\Facades\Artisan::all();
 
-        if (!in_array($name, array_keys($commands))){
+        if (!in_array($name, array_keys($commands))) {
             abort(404);
         }
 
@@ -196,7 +214,7 @@ class Artisan extends Page implements HasTable, HasActions
     }
 
 
-    public function runCommand(string $key, array $data=[]): string
+    public function runCommand(string $key, array $data = []): string
     {
         try {
 
@@ -204,15 +222,15 @@ class Artisan extends Page implements HasTable, HasActions
 
             $permissions = config('filament-artisan.permissions', []);
 
-            if(count($permissions)){
-                if (in_array($command->getName(), array_keys($permissions)) && !\Gate::check($permissions[$command->getName()])){
+            if (count($permissions)) {
+                if (in_array($command->getName(), array_keys($permissions)) && !\Gate::check($permissions[$command->getName()])) {
                     abort(403);
                 }
             }
 
             $params = [];
 
-            if(count($data)){
+            if (count($data)) {
                 $data = array_filter($data);
                 $options = array_keys($command->getDefinition()->getOptions());
 
@@ -240,7 +258,7 @@ class Artisan extends Page implements HasTable, HasActions
                 ->send();
 
             return $output;
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             session()->forget('terminal_output');
             session()->put('terminal_output', $exception->getMessage());
 
@@ -252,6 +270,5 @@ class Artisan extends Page implements HasTable, HasActions
 
             return $exception->getMessage();
         }
-
     }
 }

@@ -6,6 +6,9 @@ return [
     "actions" => [
         "output" => "Output",
     ],
+    "modal" => [
+        "label" => "Run action"
+    ],
     "notifications" => [
         "success" => [
             "title" => "Command executed",

@@ -51,6 +51,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Developer gate
+    |--------------------------------------------------------------------------
+    |
+    | Flag to disable or enable developer gate
+    |
+    */
+    'developer_gate' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | List of command permissions
     |--------------------------------------------------------------------------
     |
@@ -217,9 +227,9 @@ return [
     |   group:
     |       set the group name for the navigation (will be translate).
     */
-     'navigation' => [
-         'show-only-commands-showing' => true,
-         'group' => 'Settings'
-     ]
-
+    'navigation' => [
+        'show-only-commands-showing' => true,
+        'group' => 'Settings',
+        'icon' => 'heroicon-o-command-line',
+    ]
 ];
