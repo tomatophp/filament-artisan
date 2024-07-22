@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -105,13 +106,11 @@ class Artisan extends Page implements HasTable, HasActions
 
                 foreach ($formBuild as $formItem){
                     if($formItem->array){
-                        $form[] = Select::make($formItem->name)
-                            ->searchable()
+                        $form[] = TagsInput::make($formItem->name)
                             ->hint($formItem->description)
                             ->label($formItem->title)
                             ->default($formItem->default)
-                            ->required($formItem->required)
-                            ->options($formItem->array);
+                            ->required($formItem->required);
                     }
                     else {
                         $form[] = TextInput::make($formItem->name)
@@ -125,7 +124,7 @@ class Artisan extends Page implements HasTable, HasActions
                     }
                 }
 
-               return $form;
+                return $form;
             })
             ->action(function (array $arguments=[], array $data=[]){
                 $output = $this->runCommand($arguments['item']['name'], $data);
