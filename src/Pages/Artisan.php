@@ -21,18 +21,30 @@ use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\BufferedOutput;
 use TomatoPHP\FilamentArtisan\Http\Controllers\GuiController;
 use TomatoPHP\FilamentArtisan\Models\Command;
-use TomatoPHP\FilamentDeveloperGate\Traits\DeveloperGateLogoutAction;
-use TomatoPHP\FilamentDeveloperGate\Traits\InteractWithDeveloperGate;
+use TomatoPHP\FilamentDeveloperGate\Http\Middleware\DeveloperGateMiddleware;
 
 class Artisan extends Page implements HasTable, HasActions
 {
     use InteractsWithTable;
     use InteractsWithActions;
-    use InteractWithDeveloperGate;
 
     protected static ?string $navigationIcon = 'heroicon-o-command-line';
 
     protected static string $view = 'filament-artisan::index';
+
+    public static function getRouteMiddleware(Panel $panel): string|array
+    {
+        $middlewares = [
+            'auth',
+            'verified',
+        ];
+
+        if (config('filament-artisan.developer_gate', true)) {
+            $middlewares[] = DeveloperGateMiddleware::class;
+        }
+
+        return $middlewares;
+    }
 
     public function getTitle(): string
     {
@@ -54,21 +66,23 @@ class Artisan extends Page implements HasTable, HasActions
 
     protected function getHeaderActions(): array
     {
-        return [
+        $actions = [
             Action::make('output')
                 ->icon('heroicon-s-computer-desktop')
                 ->color('warning')
-                ->form(fn(array $arguments=[]) =>[
                     Textarea::make('output')
                         ->autosize()
-                        ->default($arguments? $arguments['output']:session()->get('terminal_output'))
+                        ->default($arguments ? $arguments['output'] : session()->get('terminal_output'))
                         ->disabled()
                         ->label(trans('filament-artisan::messages.actions.output'))
                 ])
                 ->label(trans('filament-artisan::messages.actions.output')),
-            Action::make('developer_gate_logout')
+        ];
+
+        if (config('filament-artisan.developer_gate', true)) {
+            $actions[] = Action::make('developer_gate_logout')
                 ->icon('heroicon-s-arrow-left-on-rectangle')
-                ->action(function (){
+                ->action(function () {
                     session()->forget('developer_password');
 
                     Notification::make()
@@ -81,8 +95,10 @@ class Artisan extends Page implements HasTable, HasActions
                 })
                 ->requiresConfirmation()
                 ->color('danger')
-                ->label(trans('filament-developer-gate::messages.logout'))
-        ];
+                ->label(trans('filament-developer-gate::messages.logout'));
+        }
+
+        return $actions;
     }
 
     public function runAction(?Command $item=null)
