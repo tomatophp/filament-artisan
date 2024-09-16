@@ -4,12 +4,15 @@ namespace TomatoPHP\FilamentArtisan;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Nwidart\Modules\Module;
 use TomatoPHP\FilamentArtisan\Pages\Artisan;
 use TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin;
 
 
 class FilamentArtisanPlugin implements Plugin
 {
+    private bool $isActive = false;
+
     public function getId(): string
     {
         return 'filament-artisan';
@@ -17,11 +20,22 @@ class FilamentArtisanPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel
-            ->plugin(FilamentDeveloperGatePlugin::make())
-            ->pages([
-                Artisan::class,
-            ]);
+        if(class_exists(Module::class)){
+            if(\Nwidart\Modules\Facades\Module::find('FilamentArtisan')->isEnabled()){
+                $this->isActive = true;
+            }
+        }
+        else {
+            $this->isActive = true;
+        }
+
+        if($this->isActive) {
+            $panel
+                ->plugin(FilamentDeveloperGatePlugin::make())
+                ->pages([
+                    Artisan::class,
+                ]);
+        }
 
     }
 
