@@ -1,0 +1,29 @@
+{
+    "name": "FilamentArtisan",
+    "alias": "filament-artisan",
+    "description": {
+        "ar": "قم بتشغيل اوامر لارفيل بكل سهولة من خلال وجهة المستخدم",
+        "en": "Simple but yet powerful library for running some artisan commands.",
+        "gr": "Simple but yet powerful library for running some artisan commands.",
+        "sp": "Simple but yet powerful library for running some artisan commands."
+    },
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "TomatoPHP\\FilamentArtisan\\FilamentArtisanServiceProvider"
+    ],
+    "files": [],
+    "title": {
+        "ar": "مشغل اوامر لارفيل",
+        "en": "Artisan Command Runner",
+        "gr": "Artisan Command Runner",
+        "sp": "Artisan Command Runner"
+    },
+    "color": "#cc1448",
+    "icon": "heroicon-c-command-line",
+    "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/3x1io-tomato-artisan.jpg",
+    "type": "plugin",
+    "version": "v1.1.3",
+    "github" : "https://github.com/tomatophp/filament-artisan",
+    "docs" : "https://github.com/tomatophp/filament-artisan"
+}
