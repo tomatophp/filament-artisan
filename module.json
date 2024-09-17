@@ -23,7 +23,7 @@
     "icon": "heroicon-c-command-line",
     "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/3x1io-tomato-artisan.jpg",
     "type": "plugin",
-    "version": "v1.1.3",
+    "version": "v1.1.4",
     "github" : "https://github.com/tomatophp/filament-artisan",
     "docs" : "https://github.com/tomatophp/filament-artisan"
 }
