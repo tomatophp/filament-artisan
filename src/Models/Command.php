@@ -4,6 +4,7 @@ namespace TomatoPHP\FilamentArtisan\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 use Sushi\Sushi;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -70,7 +71,7 @@ class Command extends Model
         $definition = $command->getDefinition();
         $arguments = array_map(function (InputArgument $argument) {
             return [
-                'title' => \Str::of($argument->getName())->replace('_', ' ')->title()->__toString(),
+                'title' => Str::of($argument->getName())->replace('_', ' ')->title()->__toString(),
                 'name' => $argument->getName(),
                 'description' => $argument->getDescription(),
                 'default' => empty($default = $argument->getDefault()) ? null : $default,
@@ -115,7 +116,7 @@ class Command extends Model
 
         $options = array_map(function (InputOption $option) {
             return [
-                'title' => \Str::of($option->getName())->replace('_', ' ')->title()->__toString(),
+                'title' => Str::of($option->getName())->replace('_', ' ')->title()->__toString(),
                 'name' => $option->getName(),
                 'description' => $option->getDescription(),
                 'shortcut' => $option->getShortcut(),
@@ -132,7 +133,7 @@ class Command extends Model
     protected function renameKeys(array $array): array
     {
         $keys = array_map(function ($key) {
-            return \Str::title($key);
+            return Str::title($key);
         }, array_keys($array));
 
         return array_combine($keys, array_values($array));
