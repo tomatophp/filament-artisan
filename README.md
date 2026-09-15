@@ -1,4 +1,4 @@
-![Screenshot](https://raw.githubusercontent.com//tomatophp/filament-artisan/master/arts/3x1io-tomato-artisan.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/3x1io-tomato-artisan.jpg)
 
 # Filament Artisan Command Runner
 
@@ -9,6 +9,9 @@
 Simple but yet powerful library for running some [artisan](https://laravel.com/docs/artisan) commands for FilamentPHP
 
 ## Screenshots
+
+![Demo dark](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/demo-dark.png)
+![Demo light](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/demo-light.png)
 
 ![Commands List](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands.png)
 ![Commands Form](https://raw.githubusercontent.com/tomatophp/filament-artisan/master/arts/commands-form.png)
