@@ -33,10 +33,7 @@ class Artisan extends Page implements HasTable, HasActions
 
     public static function getRouteMiddleware(Panel $panel): string|array
     {
-        $middlewares = [
-            'auth',
-            'verified',
-        ];
+        $middlewares = config('filament-artisan.middlewares', ['web', 'auth']);
 
         if (config('filament-artisan.developer_gate', true)) {
             $middlewares[] = DeveloperGateMiddleware::class;
