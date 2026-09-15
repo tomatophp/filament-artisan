@@ -7,13 +7,14 @@ return [
     | Middleware list for web routes
     |--------------------------------------------------------------------------
     |
-    | You can pass any middleware for routes, by default it's just [web] group
-    | of middleware.
+    | Route middleware applied to the Artisan page (on top of the panel
+    | middleware). Add 'verified' here if your users verify their email.
+    | The developer gate middleware is appended when 'developer_gate' is on.
     |
     */
     'middlewares' => [
         'web',
-        'auth'
+        'auth',
     ],
 
     /*
@@ -21,10 +22,8 @@ return [
     | Route prefix
     |--------------------------------------------------------------------------
     |
-    | Prefix for gui routes. By default url is [/~artisan-gui].
-    | For your wish you can set it for example 'my-'. So url will be [/my-artisan-gui].
-    |
-    | Why tilda? It's selected for prevent route names correlation.
+    | Unused since v2: the page lives inside the Filament panel. Kept for
+    | backwards compatibility of published config files.
     |
     */
     'prefix' => 'admin/',
@@ -34,7 +33,7 @@ return [
     | Home url
     |--------------------------------------------------------------------------
     |
-    | Where to go when [home] button is pressed
+    | Unused, kept for backwards compatibility of published config files.
     |
     */
     'home' => '/',
@@ -44,7 +43,9 @@ return [
     | Only on local
     |--------------------------------------------------------------------------
     |
-    | Flag that preventing showing commands if environment is on production
+    | When true, the Artisan page is only accessible (and only shown in the
+    | navigation) when APP_ENV is "local". Set it to false to use the page on
+    | other environments. Can be overridden with ->onlyLocal() on the plugin.
     |
     */
     'local' => true,
@@ -54,7 +55,9 @@ return [
     | Developer gate
     |--------------------------------------------------------------------------
     |
-    | Flag to disable or enable developer gate
+    | Protect the page with the developer gate password
+    | (DEVELOPER_GATE_PASSWORD). Can be overridden with ->developerGate()
+    | on the plugin.
     |
     */
     'developer_gate' => true,
@@ -115,11 +118,11 @@ return [
             'livewire:move',
             'livewire:publish',
             'livewire:stubs',
-            'livewire:upgrade'
+            'livewire:upgrade',
         ],
         'icons' => [
             'icons:cache',
-            'icons:clear'
+            'icons:clear',
         ],
         'laravel' => [
             'clear-compiled',
@@ -211,8 +214,8 @@ return [
         ],
         'view' => [
             'view:cache',
-            'view:clear'
-        ]
+            'view:clear',
+        ],
     ],
 
     /*
@@ -231,5 +234,15 @@ return [
         'show-only-commands-showing' => true,
         'group' => 'Settings',
         'icon' => 'heroicon-o-command-line',
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Defer the table filters and the column manager
+    |--------------------------------------------------------------------------
+    */
+    'defer' => [
+        'filters' => false,
+        'columns' => false,
+    ],
 ];

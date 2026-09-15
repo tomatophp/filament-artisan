@@ -1,22 +1,23 @@
 <?php
 
 return [
-    "title" => "Artisan",
-    "group" => "Settings",
-    "actions" => [
-        "output" => "Output",
+    'title' => 'Artisan',
+    'group' => 'Settings',
+    'actions' => [
+        'output' => 'Output',
+        'close' => 'Close',
     ],
-    "modal" => [
-        "label" => "Run action"
+    'modal' => [
+        'label' => 'Run action',
     ],
-    "notifications" => [
-        "success" => [
-            "title" => "Command executed",
-            "body" => "Command executed successfully",
+    'notifications' => [
+        'success' => [
+            'title' => 'Command executed',
+            'body' => 'Command executed successfully',
         ],
-        "error" => [
-            "title" => "Command failed",
-            "body" => "Command failed to execute",
+        'error' => [
+            'title' => 'Command failed',
+            'body' => 'Command failed to execute',
         ],
-    ]
+    ],
 ];
