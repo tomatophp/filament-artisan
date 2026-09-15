@@ -17,6 +17,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\HtmlString;
 use Symfony\Component\Console\Output\BufferedOutput;
 use TomatoPHP\FilamentArtisan\Http\Controllers\GuiController;
 use TomatoPHP\FilamentArtisan\Models\Command;
@@ -66,13 +67,24 @@ class Artisan extends Page implements HasTable, HasActions
             Action::make('output')
                 ->icon('heroicon-s-computer-desktop')
                 ->color('warning')
-                ->form(fn(array $arguments = []) => [
-                    Textarea::make('output')
-                        ->autosize()
-                        ->default($arguments ? $arguments['output'] : session()->get('terminal_output'))
-                        ->disabled()
-                        ->label(trans('filament-artisan::messages.actions.output'))
-                ])
+                ->modalHeading('Command Output')
+                ->modalContent(function (array $arguments = []) {
+                    $output = $arguments ? $arguments['output'] : session()->get('terminal_output');
+
+                    return new HtmlString("
+                    <pre style='font-family: Monaco, Menlo, Ubuntu Mono, Consolas, Courier New, monospace; 
+                               font-size: 13px; 
+                               line-height: 1.4; 
+                               border: 1px solid #333;
+                               width: 100%;
+                               overflow-x: auto;
+                               white-space: pre;
+                               margin: 0;
+                               padding: 1rem;'>{$output}</pre>
+                ");
+                })
+                ->modalSubmitAction(false)
+                ->modalCancelActionLabel('Close')
                 ->label(trans('filament-artisan::messages.actions.output')),
         ];
 
