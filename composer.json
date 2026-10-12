@@ -2,6 +2,12 @@
     "name": "tomatophp/filament-artisan",
     "type": "library",
     "description": "Simple but yet powerful library for running some artisan commands for FilamentPHP",
+    "homepage": "https://tomatophp.com/en/plugins/filament-artisan",
+    "support": {
+        "issues": "https://github.com/tomatophp/filament-artisan/issues",
+        "source": "https://github.com/tomatophp/filament-artisan",
+        "docs": "https://tomatophp.com/en/plugins/filament-artisan"
+    },
     "keywords": [
         "php",
         "laravel",
